@@ -1,0 +1,48 @@
+.container
+  h1 Nightwatch Test Report
+    br
+    small !{new Date().toString()}
+
+.container
+  if !hideSuccess
+    a.btn.btn-outline-primary.toggleSuccess(href='#') Show/Hide Successes
+
+  a.btn.btn-outline-primary.toggleErrors(href='#') Show/Hide Errors
+
+  if testRun.errmessages.length > 0
+    div.errmessages
+      h2 Errors
+        span.count= ' (' + testRun.errmessages.length + ')'
+      ul.errors
+        each msg in testRun.errmessages
+          li= msg
+  hr
+
+  each pkg in testRun.packages
+    .card
+      .card-header(class= 'package bg-dark ' + (pkg.isFailure ? 'text-danger error' : 'text-light success'))
+        i(class="fa " + (pkg.isFailure ? 'fa-times-circle' : 'fa-check-circle'))
+        b &nbsp; !{pkg.name}
+      table.table
+        each suite in pkg.suites
+          tbody
+            tr
+              th.text-center
+                i(class="fa " + (suite.isFailure ? 'fa-times-circle' : 'fa-check-circle'))
+              th.name(colspan=2)
+                b &nbsp; !{suite.name}
+            each testCase in suite.cases
+              if testCase.isFailure
+                tr.table-danger
+                  td.text-center
+                    i.fa.fa-times-circle
+                  td.name.testcase
+                    span &nbsp; !{testCase.message}
+                  td= testCase.failure
+              else
+                  tr.table-success
+                    td.text-center
+                      t.fa.fa-check-circle
+                    td.name.testcase(colspan=2)
+                      span &nbsp; !{testCase.message}
+    br

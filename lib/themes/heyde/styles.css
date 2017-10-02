@@ -38,7 +38,6 @@ h3{
   margin: 0 0 0 30px;
 }
 .package {
-  margin: 15px 0;
 }
 .package > .name {
   cursor: pointer;
@@ -59,6 +58,9 @@ ul{
 }
 .testcase .name {
   display: inline-block;
+}
+.testcase {
+  padding-left: 10px !important;
 }
 .success{
   color: rgb(56, 142, 56);
